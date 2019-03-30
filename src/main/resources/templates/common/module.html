@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="commonHeader(title)">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/bootstrap3/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap3/css/bootstrap-theme.min.css}">
+    <script th:src="@{/bootstrap3/js/jquery.min.js}"></script>
+    <script th:src="@{/bootstrap3/js/bootstrap.min.js}" ></script>
+    <title th:text="'sunrun-show-' + ${title}"></title>
+</head>
+<body>
+<nav class="navbar navbar-static-top navbar-inverse" th:fragment="commonNav(activeTab)">
+    <div class="container-container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">SunRunETool</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li th:class="${activeTab == 'index' ? 'active':''}"><a href="/">home <span class="sr-only">(current)</span></a></li>
+
+                <li th:class="${activeTab == 'simpleTools' ? 'active dropdown':'dropdown'}">
+                    <a href="#" th:class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">邮箱工具<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/delivery/index}">提货单号提取</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Help</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mr.Arya <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+<div class="row" id="content" tabindex="-1">
+    <div class="col-md-12">
+        <div class="container">
+            <h1>组件</h1>
+            <p>无数可复用的组件，包括字体图标、下拉菜单、导航、警告框、弹出框等更多功能。</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

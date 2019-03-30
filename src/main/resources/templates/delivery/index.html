@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/module::commonHeader('index')">
+
+</head>
+<body>
+<div th:replace="common/module::commonNav('algorithm')"></div>
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">提货单号提取</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="filePath" class="col-sm-2 control-label">文件路径</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="filePath" name="filePath" placeholder="本地文件路径...">
+                        <p class="help-block">分析文件路径.</p>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="filePath" class="col-sm-2 control-label">结果路径</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="resultPath" name="resultPath" placeholder="结果存放路径...">
+                        <p class="help-block">分析结果存储文件夹路径.</p>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="filePath" class="col-sm-2 control-label">提货单号所在单元格</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="targetCell" name="targetCell" placeholder="提货单号所在单元格...">
+                        <p class="help-block">不填则默认位于B7.</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button id="start" type="button" class="btn btn-primary">开始解析</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-default" th:fragment="compute_result">
+        <div class="panel-heading">
+            <h3 class="panel-title">分析结果</h3>
+        </div>
+        <div class="panel-body">
+            <table id="result-table" class="table table-striped">
+                <thead>
+                <th>#</th>
+                <th>文件名</th>
+                <th>结果</th>
+                </thead>
+                <tbody>
+                <tr><td>4</td><td>message</td><td class="text-danger" id="r_message"></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $("#start").click(function(){
+            $.ajax({
+                url:"[[@{/delivery/start}]]",
+                type:"post",
+                dataType: "json",
+                contentType: "application/json",
+                data:JSON.stringify({
+                    "filePath":$("#filePath").val(),
+                    "resultPath":$("#resultPath").val(),
+                    "targetCell":$("#targetCell").val()
+                }),
+                success:function(data){
+                    $("#r_message").html(data['message']);
+                    console.log(data);
+                },
+                error:function(e){
+                    console.log(e);
+                }
+            });
+        });
+    })
+</script>
+</body>
+</html>
